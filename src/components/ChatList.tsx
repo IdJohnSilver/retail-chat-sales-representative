@@ -1,12 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import { useChatStore } from '../store/chatStore';
 
 export function ChatList() {
   const chats = useChatStore((s) => s.chats);
-  const activeChatId = useChatStore((s) => s.activeChatId);
-  const setActiveChat = useChatStore((s) => s.setActiveChat);
-  const loadMessages = useChatStore((s) => s.loadMessages);
   const loading = useChatStore((s) => s.loading);
   const error = useChatStore((s) => s.error);
+  const navigate = useNavigate();
 
   if (loading) {
     return <div className="chat-list-empty">Загрузка...</div>;
@@ -21,8 +20,8 @@ export function ChatList() {
       {chats.map((chat) => (
         <li
           key={chat.chaId}
-          className={`chat-list-item ${chat.chaId === activeChatId ? 'active' : ''}`}
-          onClick={() => { setActiveChat(chat.chaId, chat.chaCode); loadMessages(chat.chaCode); }}
+          className="chat-list-item"
+          onClick={() => navigate(`/chat/${chat.chaCode}`)}
         >
           <span className="chat-list-item-name">{chat.chaName}</span>
         </li>

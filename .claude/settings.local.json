@@ -3,7 +3,10 @@
     "allow": [
       "Edit",
       "Write",
-      "WebSearch"
+      "WebSearch",
+      "Bash(git commit *)",
+      "Bash(git diff *)",
+      "Bash(git status *)"
     ]
   }
 }

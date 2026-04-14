@@ -14,6 +14,7 @@ interface ChatState {
   sending: boolean;
   sendError: string | null;
   setActiveChat: (chatId: string | null, chatCode?: string | null) => void;
+  setActiveChatByCode: (chatCode: string) => void;
   setChats: (chats: Chat[]) => void;
   setMessages: (messages: Message[]) => void;
   addMessage: (message: Message) => void;
@@ -35,6 +36,10 @@ export const useChatStore = create<ChatState>((set, get) => ({
   sendError: null,
   setActiveChat: (chatId, chatCode = null) => {
     set({ activeChatId: chatId, activeChatCode: chatCode, messages: [], messagesError: null });
+  },
+  setActiveChatByCode: (chatCode) => {
+    const chat = get().chats.find((c) => c.chaCode === chatCode) ?? null;
+    set({ activeChatId: chat?.chaId ?? null, activeChatCode: chatCode, messages: [], messagesError: null });
   },
   setChats: (chats) => set({ chats }),
   setMessages: (messages) => set({ messages }),
