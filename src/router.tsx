@@ -1,14 +1,25 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { MainLayout } from './layouts/MainLayout';
 import { ChatsPage } from './pages/ChatsPage';
+import { LoginPage } from './pages/LoginPage';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 export const router = createBrowserRouter([
   {
-    element: <MainLayout />,
+    path: '/login',
+    element: <LoginPage />,
+  },
+  {
+    element: <ProtectedRoute />,
     children: [
       {
-        path: '/',
-        element: <ChatsPage />,
+        element: <MainLayout />,
+        children: [
+          {
+            path: '/',
+            element: <ChatsPage />,
+          },
+        ],
       },
     ],
   },
