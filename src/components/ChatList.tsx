@@ -4,6 +4,7 @@ export function ChatList() {
   const chats = useChatStore((s) => s.chats);
   const activeChatId = useChatStore((s) => s.activeChatId);
   const setActiveChat = useChatStore((s) => s.setActiveChat);
+  const loadMessages = useChatStore((s) => s.loadMessages);
   const loading = useChatStore((s) => s.loading);
   const error = useChatStore((s) => s.error);
 
@@ -21,7 +22,7 @@ export function ChatList() {
         <li
           key={chat.chaId}
           className={`chat-list-item ${chat.chaId === activeChatId ? 'active' : ''}`}
-          onClick={() => setActiveChat(chat.chaId)}
+          onClick={() => { setActiveChat(chat.chaId); loadMessages(chat.chaCode); }}
         >
           <span className="chat-list-item-name">{chat.chaName}</span>
         </li>

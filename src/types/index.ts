@@ -17,10 +17,9 @@ export interface Chat {
 }
 
 export interface Message {
-  id: string;
-  chatId: string;
-  senderId: string;
+  code: string;
   text: string;
   createdAt: string;
-  status: 'sent' | 'delivered' | 'read';
+  userCode: string;
+  userName: string;
 }
