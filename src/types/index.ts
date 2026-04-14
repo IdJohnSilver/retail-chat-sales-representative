@@ -11,10 +11,9 @@ export interface TradePoint {
 }
 
 export interface Chat {
-  id: string;
-  tradePointId: string;
-  participants: string[];
-  lastMessage?: Message;
+  chaCode: string;
+  chaId: string;
+  chaName: string;
 }
 
 export interface Message {

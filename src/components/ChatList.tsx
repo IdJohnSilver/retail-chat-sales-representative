@@ -4,23 +4,26 @@ export function ChatList() {
   const chats = useChatStore((s) => s.chats);
   const activeChatId = useChatStore((s) => s.activeChatId);
   const setActiveChat = useChatStore((s) => s.setActiveChat);
+  const loading = useChatStore((s) => s.loading);
+  const error = useChatStore((s) => s.error);
+
+  if (loading) {
+    return <div className="chat-list-empty">Загрузка...</div>;
+  }
+
+  if (error) {
+    return <div className="chat-list-empty chat-list-error">{error}</div>;
+  }
 
   return (
     <ul className="chat-list">
       {chats.map((chat) => (
         <li
-          key={chat.id}
-          className={`chat-list-item ${chat.id === activeChatId ? 'active' : ''}`}
-          onClick={() => setActiveChat(chat.id)}
+          key={chat.chaId}
+          className={`chat-list-item ${chat.chaId === activeChatId ? 'active' : ''}`}
+          onClick={() => setActiveChat(chat.chaId)}
         >
-          <span className="chat-list-item-name">
-            Торговая точка #{chat.tradePointId}
-          </span>
-          {chat.lastMessage && (
-            <span className="chat-list-item-preview">
-              {chat.lastMessage.text}
-            </span>
-          )}
+          <span className="chat-list-item-name">{chat.chaName}</span>
         </li>
       ))}
       {chats.length === 0 && (
