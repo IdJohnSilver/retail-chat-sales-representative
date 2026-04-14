@@ -22,7 +22,7 @@ export function ChatList() {
         <li
           key={chat.chaId}
           className={`chat-list-item ${chat.chaId === activeChatId ? 'active' : ''}`}
-          onClick={() => { setActiveChat(chat.chaId); loadMessages(chat.chaCode); }}
+          onClick={() => { setActiveChat(chat.chaId, chat.chaCode); loadMessages(chat.chaCode); }}
         >
           <span className="chat-list-item-name">{chat.chaName}</span>
         </li>

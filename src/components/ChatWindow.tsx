@@ -6,12 +6,17 @@ export function ChatWindow() {
   const messages = useChatStore((s) => s.messages);
   const messagesLoading = useChatStore((s) => s.messagesLoading);
   const messagesError = useChatStore((s) => s.messagesError);
+  const sending = useChatStore((s) => s.sending);
+  const sendError = useChatStore((s) => s.sendError);
+  const sendMessage = useChatStore((s) => s.sendMessage);
   const [input, setInput] = useState('');
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
-    // TODO: отправка сообщения через API
-    setInput('');
+    await sendMessage(input);
+    if (!useChatStore.getState().sendError) {
+      setInput('');
+    }
   };
 
   const sortedMessages = [...messages].sort(
@@ -35,6 +40,9 @@ export function ChatWindow() {
           </div>
         ))}
       </div>
+      {sendError && (
+        <div className="chat-send-error">{sendError}</div>
+      )}
       <div className="chat-input">
         <input
           type="text"
@@ -42,8 +50,11 @@ export function ChatWindow() {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSend()}
           placeholder="Введите сообщение..."
+          disabled={sending}
         />
-        <button onClick={handleSend}>Отправить</button>
+        <button onClick={handleSend} disabled={sending}>
+          {sending ? '...' : 'Отправить'}
+        </button>
       </div>
     </div>
   );

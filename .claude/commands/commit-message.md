@@ -1,13 +1,13 @@
 ---
 description: Create a commit message by analyzing git diffs
-allowed-tools: Bash(git status:*), Bash(git diff --staged), Bash(git commit:*)
+allowed-tools: Bash(git status:*), Bash(git diff --staged), Bash(git commit:*), Bash(git add:*)
 ---
 
 ## Context:
-
 - Current git status: !`git status`
 - Current git diff: !`git diff --staged`
 
+В первую очередь выполни команду `git add *` для внесения всех изменений в staged.
 Проанализируй подготовленные (staged) изменения в git и создай сообщение коммита. Используй настоящее время и объясняй, "почему" были внесены изменения, а не только "что" изменилось.
 
 ## Commit types
